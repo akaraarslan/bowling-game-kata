@@ -25,4 +25,4 @@ In the tenth frame a player who rolls a spare or strike is allowed to roll the e
             * if (roll(n-1) == strike) roll(n-2).point + roll(n).point
             * if (roll(n-1) == spare)  roll(n-1).point + roll(n).point and finalize(frame of roll(n-1))
     * for Last Frame
-        * if (roll19 == strike ||�roll20 == strike ||�roll20 == spare) roll 3 times in this frame
+        * if (roll19 == strike || roll20 == strike || roll20 == spare) roll 3 times in this frame
