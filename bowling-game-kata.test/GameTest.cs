@@ -3,7 +3,18 @@ using Xunit;
 namespace bowling_game_kata.test
 {
     public class GameTest
-    {
+    {  
+        [Fact]
+        public void Should_FirstRollX_TotalScoreX()
+        {
+            Game game = new Game();
+
+            game.Roll(1);
+
+            Assert.True(game.TotalScore == 1);
+
+        }
+
         [Fact]
         public void Should_Calculate20_When_AllRolls1()
         {
@@ -32,6 +43,19 @@ namespace bowling_game_kata.test
 
         [Fact]
         public void Should_CalculateSpareBonus_When_Rolled3Times()
+        {
+            Game game = new Game();
+
+            game.Roll(5);
+            game.Roll(5);
+            game.Roll(4);
+
+            Assert.Equal(18, game.TotalScore);
+        }
+
+
+        [Fact]
+        public void Should_CalculateStrikeBonus_When_Rolled3Times()
         {
             Game game = new Game();
 
