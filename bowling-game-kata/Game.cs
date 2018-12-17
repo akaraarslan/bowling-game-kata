@@ -17,6 +17,11 @@
                 TotalScore += RollKnockedPinsCountList[RollIndex];
             }
 
+              if (RollIndex >= 2 && (RollKnockedPinsCountList[RollIndex - 2]) == 10)
+            {
+                TotalScore += RollKnockedPinsCountList[RollIndex-1] + RollKnockedPinsCountList[RollIndex];
+            }
+
             RollIndex++;
         }
     }

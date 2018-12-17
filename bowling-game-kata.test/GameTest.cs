@@ -42,7 +42,7 @@ namespace bowling_game_kata.test
         }
 
         [Fact]
-        public void Should_CalculateSpareBonus_When_Rolled3Times()
+        public void Should_CalculateSpareBonus_When_NextRolled()
         {
             Game game = new Game();
 
@@ -55,15 +55,15 @@ namespace bowling_game_kata.test
 
 
         [Fact]
-        public void Should_CalculateStrikeBonus_When_Rolled3Times()
+        public void Should_CalculateStrikeBonus_When_NextTwoRolled()
         {
             Game game = new Game();
 
-            game.Roll(5);
+            game.Roll(10);
             game.Roll(5);
             game.Roll(4);
 
-            Assert.Equal(18, game.TotalScore);
+            Assert.Equal(28, game.TotalScore);
         }
     }
 }
