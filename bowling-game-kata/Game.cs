@@ -1,4 +1,6 @@
-﻿namespace bowling_game_kata
+﻿using System;
+
+namespace bowling_game_kata
 {
     public class Game
     {
@@ -26,9 +28,12 @@
                         result += RollHistory[i].KnockedPins;
                     }
                     //Strike Bonus
-                    if (i >= 2 && (RollHistory[i - 2].KnockedPins) == 10)
+                    if (i >= 2 && RollHistory[i - 2].KnockedPins == 10)
                     {
-                        result += RollHistory[i - 1].KnockedPins + RollHistory[i].KnockedPins;
+                        if (i < 3 || RollHistory[i - 3].KnockedPins != 0)
+                        {
+                            result += RollHistory[i - 1].KnockedPins + RollHistory[i].KnockedPins;
+                        }
                     }
                 }
 
@@ -40,17 +45,25 @@
         {
             var roll = new RollInfo();
             roll.KnockedPins = knockedPins;
-            if (RollIndex >= 2 &&
-           (RollHistory[RollIndex - 1].FrameIndex == RollHistory[RollIndex - 2].FrameIndex))
+            if (RollIndex == 0)
+            {
+                roll.FrameIndex = 0;
+            }
+            else if (RollIndex >= 1 && RollHistory[RollIndex - 1].KnockedPins == 10)
             {
                 roll.FrameIndex = RollHistory[RollIndex - 1].FrameIndex + 1;
             }
-            if (RollIndex >= 1 && RollHistory[RollIndex - 1].KnockedPins == 10)
+            else if (RollIndex >= 2 && RollHistory[RollIndex - 1].FrameIndex == RollHistory[RollIndex - 2].FrameIndex)
             {
                 roll.FrameIndex = RollHistory[RollIndex - 1].FrameIndex + 1;
+            }
+            else
+            {
+                roll.FrameIndex = RollHistory[RollIndex - 1].FrameIndex;
             }
 
             RollHistory[RollIndex] = roll;
+            Console.WriteLine(roll);
             RollIndex++;
         }
     }

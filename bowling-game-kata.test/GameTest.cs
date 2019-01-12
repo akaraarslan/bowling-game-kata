@@ -48,11 +48,8 @@ namespace bowling_game_kata.test
             Game game = new Game();
 
             game.Roll(5);
-            System.Console.WriteLine(game.RollHistory[0]);
             game.Roll(5);
-            Console.WriteLine(game.RollHistory[1]);
             game.Roll(4);
-            Console.WriteLine(game.RollHistory[2]);
 
             Assert.Equal(18, game.TotalScore);
         }
@@ -80,6 +77,19 @@ namespace bowling_game_kata.test
             game.Roll(2);
 
             Assert.Equal(15, game.TotalScore);
+        }
+
+        [Fact]
+        public void Should_NotCalculateStrikeBonus_When_FrameSecondRoleKnockedDown10Pins()
+        {
+            Game game = new Game();
+
+            game.Roll(0);
+            game.Roll(10);
+            game.Roll(5);
+            game.Roll(2);
+
+            Assert.Equal(22, game.TotalScore);
         }
     }
 }
