@@ -62,6 +62,18 @@ namespace bowling_game_kata
                 roll.FrameIndex = RollHistory[RollIndex - 1].FrameIndex;
             }
 
+            if (RollIndex == 20)
+            {
+                if (RollHistory[18].KnockedPins == 10 || RollHistory[19].KnockedPins == 10 || (RollHistory[18].KnockedPins + RollHistory[19].KnockedPins) == 10)
+                {
+                    roll.FrameIndex = 9;
+                }
+                else
+                {
+                    return;
+                }
+            }
+
             RollHistory[RollIndex] = roll;
             Console.WriteLine(roll);
             RollIndex++;
