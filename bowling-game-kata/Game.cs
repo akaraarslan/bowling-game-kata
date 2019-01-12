@@ -2,27 +2,67 @@
 {
     public class Game
     {
-        private int[] RollKnockedPinsCountList = new int[21];
+        public RollInfo[] RollHistory = new RollInfo[21];
         private int RollIndex { get; set; }
-        public int TotalScore { get; set; }
+        public int TotalScore
+        {
+            get
+            {
+                var result = 0;
+                if (RollIndex == 0)
+                {
+                    return 0;
+                }
+
+                for (int i = 0; i < RollIndex; i++)
+                {
+                    result += RollHistory[i].KnockedPins;
+
+                    //Spare Bonus
+                    if (i >= 2
+                    && (RollHistory[i - 1].KnockedPins + RollHistory[i - 2].KnockedPins) == 10
+                    && RollHistory[i - 1].FrameIndex == RollHistory[i - 2].FrameIndex)
+                    {
+                        result += RollHistory[i].KnockedPins;
+                    }
+                    //Strike Bonus
+                    if (i >= 2 && (RollHistory[i - 2].KnockedPins) == 10)
+                    {
+                        result += RollHistory[i - 1].KnockedPins + RollHistory[i].KnockedPins;
+                    }
+                }
+
+                return result;
+            }
+        }
 
         public void Roll(int knockedPins)
         {
-            RollKnockedPinsCountList[RollIndex] = knockedPins;
-
-            TotalScore += knockedPins;
-
-            if (RollIndex >= 2 && (RollKnockedPinsCountList[RollIndex - 1] + RollKnockedPinsCountList[RollIndex - 2]) == 10)
+            var roll = new RollInfo();
+            roll.KnockedPins = knockedPins;
+            if (RollIndex >= 2 &&
+           (RollHistory[RollIndex - 1].FrameIndex == RollHistory[RollIndex - 2].FrameIndex))
             {
-                TotalScore += RollKnockedPinsCountList[RollIndex];
+                roll.FrameIndex = RollHistory[RollIndex - 1].FrameIndex + 1;
+            }
+            if (RollIndex >= 1 && RollHistory[RollIndex - 1].KnockedPins == 10)
+            {
+                roll.FrameIndex = RollHistory[RollIndex - 1].FrameIndex + 1;
             }
 
-              if (RollIndex >= 2 && (RollKnockedPinsCountList[RollIndex - 2]) == 10)
-            {
-                TotalScore += RollKnockedPinsCountList[RollIndex-1] + RollKnockedPinsCountList[RollIndex];
-            }
-
+            RollHistory[RollIndex] = roll;
             RollIndex++;
+        }
+    }
+
+    public class RollInfo
+    {
+        public int KnockedPins { get; set; }
+        public int FrameIndex { get; set; }
+
+        public override string ToString()
+        {
+            return $"FrameIndex: {FrameIndex}, KnockedPins: {KnockedPins}";
         }
     }
 }

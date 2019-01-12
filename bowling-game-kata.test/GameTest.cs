@@ -1,9 +1,10 @@
 using Xunit;
+using System;
 
 namespace bowling_game_kata.test
 {
     public class GameTest
-    {  
+    {
         [Fact]
         public void Should_FirstRollX_TotalScoreX()
         {
@@ -47,12 +48,14 @@ namespace bowling_game_kata.test
             Game game = new Game();
 
             game.Roll(5);
+            System.Console.WriteLine(game.RollHistory[0]);
             game.Roll(5);
+            Console.WriteLine(game.RollHistory[1]);
             game.Roll(4);
+            Console.WriteLine(game.RollHistory[2]);
 
             Assert.Equal(18, game.TotalScore);
         }
-
 
         [Fact]
         public void Should_CalculateStrikeBonus_When_NextTwoRolled()
@@ -64,6 +67,19 @@ namespace bowling_game_kata.test
             game.Roll(4);
 
             Assert.Equal(28, game.TotalScore);
+        }
+
+        [Fact]
+        public void Should_NotCalculateSpareBonus_When_NotRolledSameFrame()
+        {
+            Game game = new Game();
+
+            game.Roll(3);
+            game.Roll(5);
+            game.Roll(5);
+            game.Roll(2);
+
+            Assert.Equal(15, game.TotalScore);
         }
     }
 }
