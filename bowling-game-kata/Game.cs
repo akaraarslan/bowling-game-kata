@@ -23,12 +23,12 @@ namespace bowling_game_kata
                     //Spare Bonus
                     if (i >= 2
                     && (RollHistory[i - 1].KnockedPins + RollHistory[i - 2].KnockedPins) == 10
-                    && RollHistory[i - 1].FrameIndex == RollHistory[i - 2].FrameIndex)
+                    && RollHistory[i - 1].FrameIndex == RollHistory[i - 2].FrameIndex && i < 18)
                     {
                         result += RollHistory[i].KnockedPins;
                     }
                     //Strike Bonus
-                    if (i >= 2 && RollHistory[i - 2].KnockedPins == 10)
+                    if (i >= 2 && RollHistory[i - 2].KnockedPins == 10 && i < 18)
                     {
                         if (i < 3 || RollHistory[i - 3].KnockedPins != 0)
                         {
