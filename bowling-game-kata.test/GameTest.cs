@@ -129,7 +129,7 @@ namespace bowling_game_kata.test
         }
 
         [Fact]
-        public void Should_FrameIndexCorrect_WhenLastFrameHasSpare()
+        public void Should_Be10Frame_WhenLastFrameHasSpare()
         {
             var game = new Game();
             RollMany(game, 18, 1);
@@ -137,11 +137,11 @@ namespace bowling_game_kata.test
             game.Roll(4);
             game.Roll(10);
 
-            Assert.Equal(9, game.RollHistory[game.RollIndex - 1].FrameIndex);
+            Assert.Equal(10, game.FrameList.Count);
         }
 
         [Fact]
-        public void Should_FrameIndexCorrect_WhenLastFrameHasStrike()
+        public void Should_Be10Frame__WhenLastFrameHasStrike()
         {
             var game = new Game();
             RollMany(game, 18, 1);
@@ -149,8 +149,7 @@ namespace bowling_game_kata.test
             game.Roll(10);
             game.Roll(5);
 
-            Assert.Equal(9, game.RollHistory[game.RollIndex - 1].FrameIndex);
-            Assert.Equal(9, game.RollHistory[game.RollIndex - 2].FrameIndex);
+            Assert.Equal(10, game.FrameList.Count);
         }
 
         [Fact]
