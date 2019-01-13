@@ -8,7 +8,7 @@ namespace bowling_game_kata
         public int RollIndex { get; set; }
         public int TotalScore()
         {
-            var result = 0;
+            var score = 0;
             if (RollIndex == 0)
             {
                 return 0;
@@ -16,26 +16,26 @@ namespace bowling_game_kata
 
             for (int i = 0; i < RollIndex; i++)
             {
-                result += RollHistory[i].KnockedPins;
+                score += RollHistory[i].KnockedPins;
 
                 //Spare Bonus
                 if (i >= 2
                 && (RollHistory[i - 1].KnockedPins + RollHistory[i - 2].KnockedPins) == 10
                 && RollHistory[i - 1].FrameIndex == RollHistory[i - 2].FrameIndex && RollHistory[i].FrameIndex != RollHistory[i - 1].FrameIndex)
                 {
-                    result += RollHistory[i].KnockedPins;
+                    score += RollHistory[i].KnockedPins;
                 }
                 //Strike Bonus
                 if (i >= 2 && RollHistory[i - 2].KnockedPins == 10 && RollHistory[i].FrameIndex != RollHistory[i - 2].FrameIndex)
                 {
                     if (i < 3 || RollHistory[i - 3].KnockedPins != 0)
                     {
-                        result += RollHistory[i - 1].KnockedPins + RollHistory[i].KnockedPins;
+                        score += RollHistory[i - 1].KnockedPins + RollHistory[i].KnockedPins;
                     }
                 }
             }
 
-            return result;
+            return score;
         }
 
         public void Roll(int knockedPins)
