@@ -208,5 +208,17 @@ namespace bowling_game_kata.test
             //assert
             Assert.Throws<Exception>(act);
         }
+
+        [Fact]
+        public void PerfectGame()
+        {
+            var game = new Game();
+            for (int i = 0; i < 12; i++)
+            {
+                game.Roll(10);
+            }
+
+            Assert.Equal(300, game.TotalScore);
+        }
     }
 }
