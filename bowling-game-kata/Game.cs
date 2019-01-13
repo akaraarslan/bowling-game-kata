@@ -5,7 +5,7 @@ namespace bowling_game_kata
     public class Game
     {
         public RollInfo[] RollHistory = new RollInfo[21];
-        private int RollIndex { get; set; }
+        public int RollIndex { get; set; }
         public int TotalScore
         {
             get
@@ -23,12 +23,12 @@ namespace bowling_game_kata
                     //Spare Bonus
                     if (i >= 2
                     && (RollHistory[i - 1].KnockedPins + RollHistory[i - 2].KnockedPins) == 10
-                    && RollHistory[i - 1].FrameIndex == RollHistory[i - 2].FrameIndex && i < 18)
+                    && RollHistory[i - 1].FrameIndex == RollHistory[i - 2].FrameIndex && RollHistory[i].FrameIndex != RollHistory[i - 1].FrameIndex)
                     {
                         result += RollHistory[i].KnockedPins;
                     }
                     //Strike Bonus
-                    if (i >= 2 && RollHistory[i - 2].KnockedPins == 10 && i < 18)
+                    if (i >= 2 && RollHistory[i - 2].KnockedPins == 10 && RollHistory[i].FrameIndex != RollHistory[i - 2].FrameIndex)
                     {
                         if (i < 3 || RollHistory[i - 3].KnockedPins != 0)
                         {
@@ -62,9 +62,10 @@ namespace bowling_game_kata
                 roll.FrameIndex = RollHistory[RollIndex - 1].FrameIndex;
             }
 
-            if (RollIndex == 20)
+            if (roll.FrameIndex == 10)
             {
-                if (RollHistory[18].KnockedPins == 10 || RollHistory[19].KnockedPins == 10 || (RollHistory[18].KnockedPins + RollHistory[19].KnockedPins) == 10)
+                if (RollHistory[RollIndex - 1].KnockedPins == 10 && RollHistory[RollIndex - 1].FrameIndex == 9
+                || (RollHistory[RollIndex - 1].KnockedPins + RollHistory[RollIndex - 2].KnockedPins) == 10 && RollHistory[RollIndex - 1].FrameIndex == 9 && RollHistory[RollIndex - 2].FrameIndex == 9)
                 {
                     roll.FrameIndex = 9;
                 }
@@ -77,6 +78,7 @@ namespace bowling_game_kata
             RollHistory[RollIndex] = roll;
             Console.WriteLine(roll);
             RollIndex++;
+            Console.WriteLine(TotalScore);
         }
     }
 

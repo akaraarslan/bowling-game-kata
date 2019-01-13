@@ -150,5 +150,60 @@ namespace bowling_game_kata.test
 
             Assert.Equal(48, game.TotalScore);
         }
+
+        [Fact]
+        public void Should_FrameIndexCorrect_WhenLastFrameHasSpare()
+        {
+            Game game = new Game();
+            for (int i = 0; i < 18; i++)
+            {
+                game.Roll(1);
+            }
+            game.Roll(6);
+            game.Roll(4);
+            game.Roll(10);
+
+            Assert.Equal(9, game.RollHistory[game.RollIndex - 1].FrameIndex);
+        }
+
+        [Fact]
+        public void Should_FrameIndexCorrect_WhenLastFrameHasStrike()
+        {
+            Game game = new Game();
+            for (int i = 0; i < 18; i++)
+            {
+                game.Roll(1);
+            }
+            game.Roll(10);
+            game.Roll(10);
+            game.Roll(5);
+
+            Assert.Equal(9, game.RollHistory[game.RollIndex - 1].FrameIndex);
+            Assert.Equal(9, game.RollHistory[game.RollIndex - 2].FrameIndex);
+        }
+
+        [Fact]
+        public void Should_CalculateScoreSheetExampleCorrect()
+        {
+            Game game = new Game();
+            game.Roll(10);
+            game.Roll(9);
+            game.Roll(1);
+            game.Roll(5);
+            game.Roll(5);
+            game.Roll(7);
+            game.Roll(2);
+            game.Roll(10);
+            game.Roll(10);
+            game.Roll(10);
+            game.Roll(9);
+            game.Roll(0);
+            game.Roll(8);
+            game.Roll(2);
+            game.Roll(9);
+            game.Roll(1);
+            game.Roll(10);
+            Assert.Equal(187, game.TotalScore);
+        }
     }
 }
