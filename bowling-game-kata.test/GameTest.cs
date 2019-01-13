@@ -69,7 +69,7 @@ namespace bowling_game_kata.test
         [Fact]
         public void Should_NotCalculateSpareBonus_When_NotRolledSameFrame()
         {
-            Game game = new Game();
+            var game = new Game();
 
             game.Roll(3);
             game.Roll(5);
@@ -82,7 +82,7 @@ namespace bowling_game_kata.test
         [Fact]
         public void Should_NotCalculateStrikeBonus_When_FrameSecondRoleKnockedDown10Pins()
         {
-            Game game = new Game();
+            var game = new Game();
 
             game.Roll(0);
             game.Roll(10);
@@ -95,11 +95,8 @@ namespace bowling_game_kata.test
         [Fact]
         public void Should_CalculateScore21stRoll_When_LastFrameHasSpare()
         {
-            Game game = new Game();
-            for (int i = 0; i < 18; i++)
-            {
-                game.Roll(1);
-            }
+            var game = new Game();
+            RollMany(game, 18, 1);
             game.Roll(7);
             game.Roll(3);
             game.Roll(5);
@@ -110,11 +107,8 @@ namespace bowling_game_kata.test
         [Fact]
         public void Should_CalculateScore21stRoll_When_LastFrameHas2Strike()
         {
-            Game game = new Game();
-            for (int i = 0; i < 18; i++)
-            {
-                game.Roll(1);
-            }
+            var game = new Game();
+            RollMany(game, 18, 1);
             game.Roll(10);
             game.Roll(10);
             game.Roll(5);
@@ -125,11 +119,8 @@ namespace bowling_game_kata.test
         [Fact]
         public void Should_NotCalculateBonus_When_LastFrame()
         {
-            Game game = new Game();
-            for (int i = 0; i < 18; i++)
-            {
-                game.Roll(1);
-            }
+            var game = new Game();
+            RollMany(game, 18, 1);
             game.Roll(10);
             game.Roll(10);
             game.Roll(10);
@@ -140,11 +131,8 @@ namespace bowling_game_kata.test
         [Fact]
         public void Should_FrameIndexCorrect_WhenLastFrameHasSpare()
         {
-            Game game = new Game();
-            for (int i = 0; i < 18; i++)
-            {
-                game.Roll(1);
-            }
+            var game = new Game();
+            RollMany(game, 18, 1);
             game.Roll(6);
             game.Roll(4);
             game.Roll(10);
@@ -155,11 +143,8 @@ namespace bowling_game_kata.test
         [Fact]
         public void Should_FrameIndexCorrect_WhenLastFrameHasStrike()
         {
-            Game game = new Game();
-            for (int i = 0; i < 18; i++)
-            {
-                game.Roll(1);
-            }
+            var game = new Game();
+            RollMany(game, 18, 1);
             game.Roll(10);
             game.Roll(10);
             game.Roll(5);
@@ -171,7 +156,7 @@ namespace bowling_game_kata.test
         [Fact]
         public void Should_CalculateScoreSheetExampleCorrect()
         {
-            Game game = new Game();
+            var game = new Game();
             game.Roll(10);
             game.Roll(9);
             game.Roll(1);
@@ -195,17 +180,12 @@ namespace bowling_game_kata.test
         [Fact]
         public void Should_ThrowException_WhenGameisOver()
         {
-            Game game = new Game();
-
-
+            var game = new Game();
             Action act = () =>
             {
-                for (int i = 0; i < 26; i++)
-                {
-                    game.Roll(10);
-                }
+                RollMany(game, 26, 10);
             };
-            //assert
+
             Assert.Throws<Exception>(act);
         }
 
@@ -213,12 +193,17 @@ namespace bowling_game_kata.test
         public void PerfectGame()
         {
             var game = new Game();
-            for (int i = 0; i < 12; i++)
-            {
-                game.Roll(10);
-            }
+            RollMany(game, 12, 10);
 
             Assert.Equal(300, game.TotalScore);
+        }
+
+        private void RollMany(Game game, int times, int pins)
+        {
+            for (int i = 0; i < times; i++)
+            {
+                game.Roll(pins);
+            }
         }
     }
 }
