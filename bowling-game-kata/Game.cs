@@ -64,14 +64,16 @@ namespace bowling_game_kata
 
             if (roll.FrameIndex == 10)
             {
-                if (RollHistory[RollIndex - 1].KnockedPins == 10 && RollHistory[RollIndex - 1].FrameIndex == 9
-                || (RollHistory[RollIndex - 1].KnockedPins + RollHistory[RollIndex - 2].KnockedPins) == 10 && RollHistory[RollIndex - 1].FrameIndex == 9 && RollHistory[RollIndex - 2].FrameIndex == 9)
+                if ((RollHistory[RollIndex - 1].KnockedPins == 10 && RollHistory[RollIndex - 1].FrameIndex == 9 && RollHistory[RollIndex - 2].FrameIndex == 8)
+                || (RollHistory[RollIndex - 1].KnockedPins + RollHistory[RollIndex - 2].KnockedPins) == 10 && RollHistory[RollIndex - 1].FrameIndex == 9 && RollHistory[RollIndex - 2].FrameIndex == 9
+                || (RollHistory[RollIndex - 3].FrameIndex == 8 && (RollHistory[RollIndex - 1].KnockedPins == 10 && RollHistory[RollIndex - 1].FrameIndex == 9 || RollHistory[RollIndex - 2].KnockedPins == 10 && RollHistory[RollIndex - 2].FrameIndex == 9)
+                ))
                 {
                     roll.FrameIndex = 9;
                 }
                 else
                 {
-                    return;
+                    throw new Exception("Game Over");
                 }
             }
 
