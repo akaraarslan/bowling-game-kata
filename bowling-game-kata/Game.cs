@@ -78,7 +78,6 @@ namespace bowling_game_kata
             RollHistory[RollIndex] = roll;
             Console.WriteLine(roll);
             RollIndex++;
-            Console.WriteLine(TotalScore);
         }
     }
 
