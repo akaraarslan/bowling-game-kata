@@ -6,39 +6,36 @@ namespace bowling_game_kata
     {
         public RollInfo[] RollHistory = new RollInfo[21];
         public int RollIndex { get; set; }
-        public int TotalScore
+        public int TotalScore()
         {
-            get
+            var result = 0;
+            if (RollIndex == 0)
             {
-                var result = 0;
-                if (RollIndex == 0)
-                {
-                    return 0;
-                }
+                return 0;
+            }
 
-                for (int i = 0; i < RollIndex; i++)
+            for (int i = 0; i < RollIndex; i++)
+            {
+                result += RollHistory[i].KnockedPins;
+
+                //Spare Bonus
+                if (i >= 2
+                && (RollHistory[i - 1].KnockedPins + RollHistory[i - 2].KnockedPins) == 10
+                && RollHistory[i - 1].FrameIndex == RollHistory[i - 2].FrameIndex && RollHistory[i].FrameIndex != RollHistory[i - 1].FrameIndex)
                 {
                     result += RollHistory[i].KnockedPins;
-
-                    //Spare Bonus
-                    if (i >= 2
-                    && (RollHistory[i - 1].KnockedPins + RollHistory[i - 2].KnockedPins) == 10
-                    && RollHistory[i - 1].FrameIndex == RollHistory[i - 2].FrameIndex && RollHistory[i].FrameIndex != RollHistory[i - 1].FrameIndex)
+                }
+                //Strike Bonus
+                if (i >= 2 && RollHistory[i - 2].KnockedPins == 10 && RollHistory[i].FrameIndex != RollHistory[i - 2].FrameIndex)
+                {
+                    if (i < 3 || RollHistory[i - 3].KnockedPins != 0)
                     {
-                        result += RollHistory[i].KnockedPins;
-                    }
-                    //Strike Bonus
-                    if (i >= 2 && RollHistory[i - 2].KnockedPins == 10 && RollHistory[i].FrameIndex != RollHistory[i - 2].FrameIndex)
-                    {
-                        if (i < 3 || RollHistory[i - 3].KnockedPins != 0)
-                        {
-                            result += RollHistory[i - 1].KnockedPins + RollHistory[i].KnockedPins;
-                        }
+                        result += RollHistory[i - 1].KnockedPins + RollHistory[i].KnockedPins;
                     }
                 }
-
-                return result;
             }
+
+            return result;
         }
 
         public void Roll(int knockedPins)

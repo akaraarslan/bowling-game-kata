@@ -12,7 +12,7 @@ namespace bowling_game_kata.test
 
             game.Roll(1);
 
-            Assert.True(game.TotalScore == 1);
+            Assert.Equal(1, game.TotalScore());
 
         }
 
@@ -26,7 +26,7 @@ namespace bowling_game_kata.test
                 game.Roll(1);
             }
 
-            Assert.True(game.TotalScore == 20);
+            Assert.Equal(20, game.TotalScore());
         }
 
         [Fact]
@@ -39,7 +39,7 @@ namespace bowling_game_kata.test
                 game.Roll(4);
             }
 
-            Assert.True(game.TotalScore == 80);
+            Assert.Equal(80, game.TotalScore());
         }
 
         [Fact]
@@ -51,7 +51,7 @@ namespace bowling_game_kata.test
             game.Roll(5);
             game.Roll(4);
 
-            Assert.Equal(18, game.TotalScore);
+            Assert.Equal(18, game.TotalScore());
         }
 
         [Fact]
@@ -63,7 +63,7 @@ namespace bowling_game_kata.test
             game.Roll(5);
             game.Roll(4);
 
-            Assert.Equal(28, game.TotalScore);
+            Assert.Equal(28, game.TotalScore());
         }
 
         [Fact]
@@ -76,7 +76,7 @@ namespace bowling_game_kata.test
             game.Roll(5);
             game.Roll(2);
 
-            Assert.Equal(15, game.TotalScore);
+            Assert.Equal(15, game.TotalScore());
         }
 
         [Fact]
@@ -89,7 +89,7 @@ namespace bowling_game_kata.test
             game.Roll(5);
             game.Roll(2);
 
-            Assert.Equal(22, game.TotalScore);
+            Assert.Equal(22, game.TotalScore());
         }
 
         [Fact]
@@ -101,7 +101,7 @@ namespace bowling_game_kata.test
             game.Roll(3);
             game.Roll(5);
 
-            Assert.Equal(33, game.TotalScore);
+            Assert.Equal(33, game.TotalScore());
         }
 
         [Fact]
@@ -113,7 +113,7 @@ namespace bowling_game_kata.test
             game.Roll(10);
             game.Roll(5);
 
-            Assert.Equal(43, game.TotalScore);
+            Assert.Equal(43, game.TotalScore());
         }
 
         [Fact]
@@ -125,7 +125,7 @@ namespace bowling_game_kata.test
             game.Roll(10);
             game.Roll(10);
 
-            Assert.Equal(48, game.TotalScore);
+            Assert.Equal(48, game.TotalScore());
         }
 
         [Fact]
@@ -174,7 +174,7 @@ namespace bowling_game_kata.test
             game.Roll(9);
             game.Roll(1);
             game.Roll(10);
-            Assert.Equal(187, game.TotalScore);
+            Assert.Equal(187, game.TotalScore());
         }
 
         [Fact]
@@ -195,7 +195,7 @@ namespace bowling_game_kata.test
             var game = new Game();
             RollMany(game, 12, 10);
 
-            Assert.Equal(300, game.TotalScore);
+            Assert.Equal(300, game.TotalScore());
         }
 
         private void RollMany(Game game, int times, int pins)
